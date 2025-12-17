@@ -1,4 +1,4 @@
-FROM quay.io/toolbx/arch-toolbox:stable AS dune-toolbox
+FROM quay.io/toolbx/arch-toolbox:latest AS dune-toolbox
 LABEL maintainer="givensuman"
 
 RUN "pacman -Syu --needed --noconfirm git"
