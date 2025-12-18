@@ -1,20 +1,21 @@
-FROM docker.io/library/archlinux:base-devel AS dune-toolbox
+FROM archlinux:latest
 LABEL maintainer="givensuman"
 
-RUN "/bin/pacman -Syu --needed --noconfirm git"
+# Update the system and install git
+RUN pacman -Syu --noconfirm && \
+    pacman -S --noconfirm git base-devel && \
+    pacman -Scc --noconfirm
 
-# makepkg user and workdir
-ARG user=makepkg
-RUN "/bin/useradd --system --create-home $user \
-  && echo \"$user ALL=(ALL:ALL) NOPASSWD:ALL\" > /etc/sudoers.d/$user"
+RUN useradd -m -G wheel aur && \
+    # Allow the 'aur' user to run sudo without a password
+    echo "aur ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/aur
 
-# Install yay
-USER $user
-WORKDIR /home/$user
-RUN "/usr/bin/git clone https://aur.archlinux.org/yay.git"
+USER aur
+WORKDIR /home/aur
 
-WORKDIR /home/$user/yay
-RUN "/bin/makepkg -sri --needed --noconfirm"
-
-WORKDIR /home/$user
-RUN "/bin/rm -rf .cache yay"
+# Clone the yay repository and build it
+RUN git clone https://aur.archlinux.org/yay.git && \
+    cd yay && \
+    makepkg -si --noconfirm && \
+    cd .. && \
+    rm -rf yay
