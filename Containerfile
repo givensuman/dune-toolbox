@@ -23,4 +23,8 @@ RUN git clone https://aur.archlinux.org/yay.git && \
     cd yay && \
     makepkg -si --noconfirm
 
-rm -rf /home/aur
+USER root
+WORKDIR /
+RUN rm -rf /home/aur
+
+USER aur
