@@ -29,7 +29,7 @@ There is also an install script:
 ```bash
 git clone https://github.com/givensuman/dune-toolbox
 cd dune-toolbox && chmod +x ./scripts/install.sh
-./install.sh
+./scripts/install.sh
 ```
 
 As used in Dune OS, this replaces the `toolbox` command shipped with Fedora. Run `toolbox create` to build the first container specified in `$HOME/.config/dune-os/toolbox.ini` meeting the [Distrobox assemble](https://distrobox.it/usage/distrobox-assemble/) specification (or this image by default). Generally speaking, Distrobox is more powerful and allows us better control of the resulting development environment.
