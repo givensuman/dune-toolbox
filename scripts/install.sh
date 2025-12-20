@@ -15,7 +15,9 @@ if [[ ! $(command -v distrobox) ]]; then
   exit 1
 fi
 
-cp toolbox.sh /usr/bin/toolbox
+whereami="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+cp "${whereami}/../toolbox.sh" /usr/bin/toolbox
 chmod +x /usr/bin/toolbox
 
 mkdir -p /etc/dune-toolbox
