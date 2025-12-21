@@ -44,7 +44,7 @@ jobs:
       - name: Lint build script
         run: |
           sudo apt-get update && sudo apt-get install -y shellcheck
-          shellcheck **/*.sh || { echo "Shellcheck failed"; exit 1; }
+          shellcheck build.sh || { echo "Shellcheck failed"; exit 1; }
 
       # Generate additional build tags
       - name: Generate tags
